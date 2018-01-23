@@ -1,8 +1,14 @@
 import HCHScore
 from flask import Flask, request
 import json
+import configparser
 
 app = Flask(__name__)
+
+config = configparser.ConfigParser()
+config.read('config.ini',encoding="utf8")
+host = config.get('General', 'host')
+port = config.get('General', 'port')
 
 @app.route('/', methods=['GET'])
 def api():
@@ -14,4 +20,4 @@ def api():
     return server_data if isinstance(server_data, str) else json.dumps(server_data, ensure_ascii=False)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host=host, port=port)
