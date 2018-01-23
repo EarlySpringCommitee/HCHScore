@@ -59,5 +59,5 @@ def get(account=None, password=None, mode='s'):
         try:
             data[i] = mode_selector[i]()
         except KeyError:
-            data[i] = KeyError('No such mode')
+            data[i] = {}
     return data
