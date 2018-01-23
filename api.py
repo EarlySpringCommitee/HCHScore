@@ -1,0 +1,17 @@
+import HCHScore
+from flask import Flask, request
+import json
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET'])
+def api():
+    client_data = request.form
+    try:
+        server_data = HCHScore.get(client_data['account'], client_data['password'], client_data['mode'])
+    except ValueError:
+        return 'Account or password Error!'
+    return server_data if isinstance(server_data, str) else json.dumps(server_data, ensure_ascii=False)
+
+if __name__ == '__main__':
+    app.run()
