@@ -8,7 +8,7 @@ app = Flask(__name__)
 config = configparser.ConfigParser()
 config.read('config.ini',encoding="utf8")
 host = config.get('General', 'host')
-port = config.get('General', 'port')
+port = config.getint('General', 'port')
 
 @app.route('/', methods=['GET'])
 def api():
