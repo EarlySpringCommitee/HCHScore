@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/TWScore/Logo/blob/master/%E3%84%92%E3%84%93%E3%84%8D%E3%84%93.png?raw=true">
+</p>
+
 # HCHScore
 這是一個好棒棒的新竹高中成績系統 API
 
