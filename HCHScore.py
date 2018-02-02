@@ -23,16 +23,17 @@ def get(account=None, password=None, mode='i'):
         get_score_data = s.get("http://academic.hchs.hc.edu.tw/skyweb/stu/stu_result9.asp")
         get_score_data.encoding = 'big5'
         score_data = pd.read_html(get_score_data.text)[2] # score table
+        subjects = [i for i in score_data[0]] # 包合總分之類的
         score = {}
-        for i in range(4,33,4):
-            score[score_data[i][0]] = dict(zip(score_data[0][1:15],
+        for i in range(4,score_data.shape[1],4):
+            score[score_data[i][0]] = dict(zip(score_data[0][1:subjects.index("總分")],
             [[valid(score_data[i][j]), 
             valid(score_data[i+1][j]), 
             score_data[i+2][j] + '/' + score_data[i+3][j] if not (isnan(score_data[i+2][j] or isnan(score_data[i+3][j]))) else '', 
             '',
-            ''] for j in range(1,15)]))
+            ''] for j in range(1,subjects.index("總分"))]))
         for key in score:
-            for i in range(15,22):
+            for i in range(subjects.index("總分"), subjects.index("總分")+7):
                 score[key][score_data[0][i]] = valid(score_data[list(score.keys()).index(key)+1][i])
         """
         資料格式: {'第1次平時成績':
